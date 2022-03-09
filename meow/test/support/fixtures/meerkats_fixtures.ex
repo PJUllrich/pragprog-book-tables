@@ -11,10 +11,7 @@ defmodule Meow.MeerkatsFixtures do
     {:ok, meerkat} =
       attrs
       |> Enum.into(%{
-        age: 42,
-        gender: "some gender",
-        name: "some name",
-        weight: 42
+        name: "some name"
       })
       |> Meow.Meerkats.create_meerkat()
 

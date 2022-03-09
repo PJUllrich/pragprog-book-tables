@@ -75,33 +75,14 @@ names = [
   "Clawdia"
 ]
 
-genders = ["M", "F", "?"]
-
-# 12 years
-max_age = 10 * 365
-
-max_weight = 970
-min_weight = 100
-
-# In millimeter
-max_height = 3500
-min_height = 500
-
 ran = fn input -> Enum.random(input) end
 
-meerkat_count = 100
-now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+meerkat_count = 117
 
 data =
   for _ <- 1..meerkat_count do
     %{
-      name: "#{ran.(name_prefix)} #{ran.(names)}",
-      gender: ran.(genders),
-      age: ran.(0..max_age),
-      weight: max(ran.(0..max_weight), min_weight),
-      height: max(ran.(0..max_height), min_height),
-      inserted_at: now,
-      updated_at: now
+      name: "#{ran.(name_prefix)} #{ran.(names)}"
     }
   end
 

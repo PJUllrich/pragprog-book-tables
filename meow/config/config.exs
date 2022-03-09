@@ -15,7 +15,7 @@ config :meow, MeowWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: MeowWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Meow.PubSub,
-  live_view: [signing_salt: "GvHsMFRB"]
+  live_view: [signing_salt: "bG/Tl3rp"]
 
 # Configure esbuild (the version is required)
 config :esbuild,

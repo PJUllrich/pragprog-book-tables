@@ -17,7 +17,7 @@ config :meow, Meow.Repo,
 # you can enable the server option below.
 config :meow, MeowWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "ENNLAkz3Gom2a8DZzlk/YfJ1CDzHolvTjV6KiT81ehOgooP3e2OoWUgwNCDKR1T8",
+  secret_key_base: "yQxHIIvRk7XKMF2lKCSRQqugtwW1DDBryXJYksIrSAm+9OIjQ2WcQosBoKtwEmVY",
   server: false
 
 # Print only warnings and errors during test

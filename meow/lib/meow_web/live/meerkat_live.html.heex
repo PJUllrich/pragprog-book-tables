@@ -1,0 +1,33 @@
+<div id="table-container">
+  
+  <.live_component module={MeowWeb.MeerkatLive.FilterComponent} id="filter" filter={@filter} />
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <.live_component 
+            module={MeowWeb.MeerkatLive.SortingComponent} 
+            id={"sorting-id"} 
+            key={:id} 
+            sorting={@sorting} />
+        </th>
+        <th>
+          <.live_component 
+            module={MeowWeb.MeerkatLive.SortingComponent}  
+            id={"sorting-name"} 
+            key={:name} 
+            sorting={@sorting} />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for meerkat <- @meerkats do %>
+        <tr>
+          <td><%= meerkat.id %></td>
+          <td><%= meerkat.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

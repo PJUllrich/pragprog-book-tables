@@ -8,7 +8,7 @@ defmodule Meow.MeerkatsTest do
 
     import Meow.MeerkatsFixtures
 
-    @invalid_attrs %{age: nil, gender: nil, name: nil, weight: nil}
+    @invalid_attrs %{name: nil}
 
     test "list_meerkats/0 returns all meerkats" do
       meerkat = meerkat_fixture()
@@ -21,13 +21,10 @@ defmodule Meow.MeerkatsTest do
     end
 
     test "create_meerkat/1 with valid data creates a meerkat" do
-      valid_attrs = %{age: 42, gender: "some gender", name: "some name", weight: 42}
+      valid_attrs = %{name: "some name"}
 
       assert {:ok, %Meerkat{} = meerkat} = Meerkats.create_meerkat(valid_attrs)
-      assert meerkat.age == 42
-      assert meerkat.gender == "some gender"
       assert meerkat.name == "some name"
-      assert meerkat.weight == 42
     end
 
     test "create_meerkat/1 with invalid data returns error changeset" do
@@ -36,13 +33,10 @@ defmodule Meow.MeerkatsTest do
 
     test "update_meerkat/2 with valid data updates the meerkat" do
       meerkat = meerkat_fixture()
-      update_attrs = %{age: 43, gender: "some updated gender", name: "some updated name", weight: 43}
+      update_attrs = %{name: "some updated name"}
 
       assert {:ok, %Meerkat{} = meerkat} = Meerkats.update_meerkat(meerkat, update_attrs)
-      assert meerkat.age == 43
-      assert meerkat.gender == "some updated gender"
       assert meerkat.name == "some updated name"
-      assert meerkat.weight == 43
     end
 
     test "update_meerkat/2 with invalid data returns error changeset" do

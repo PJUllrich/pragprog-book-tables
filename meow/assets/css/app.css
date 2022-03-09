@@ -1,6 +1,19 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
 
+#table-filter .row {
+  display: flex;
+  align-items: flex-end;
+}
+
+#table-filter .row div {
+  margin-right: 1rem;
+}
+
+#table-filter .btn-submit {
+  margin-bottom: 0.5rem;
+}
+
 /* Alerts and form errors used by phx.new */
 .alert {
   padding: 15px;

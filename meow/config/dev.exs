@@ -4,7 +4,7 @@ import Config
 config :meow, Meow.Repo,
   username: "postgres",
   password: "postgres",
-  database: "meow_dev",
+  database: "meerkats_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -22,7 +22,7 @@ config :meow, MeowWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "l6RdVZx08vlgoN4bK5TJubdcsYJ7O3prT5E+8KTB5u4mko6EpNCTtaKp7tAy3AXs",
+  secret_key_base: "z3WfSQzYsm6SsLMzJ4KZxdlWoqptZ20lgM4I5ZigbQugdfHC0LJMc4e2OYXLDpLr",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
@@ -57,6 +57,7 @@ config :meow, MeowWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
       ~r"lib/meow_web/(live|views)/.*(ex)$",
       ~r"lib/meow_web/templates/.*(eex)$"
     ]
