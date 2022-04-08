@@ -1,4 +1,4 @@
-defmodule Meow.Snapshots.Meerkats do
+defmodule Meow.Snapshots.Sorting.Meerkats do
   import Ecto.Query, warn: false
 
   alias Meow.Repo

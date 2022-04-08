@@ -1,4 +1,4 @@
-defmodule MeowWeb.Snapshots.MeerkatLive.SortingComponent do
+defmodule MeowWeb.Snapshots.Sorting.MeerkatLive.SortingComponent do
   use MeowWeb, :live_component
 
   def render(assigns) do

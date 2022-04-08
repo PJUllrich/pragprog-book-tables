@@ -1,4 +1,4 @@
-defmodule MeowWeb.Snapshots.MeerkatLive do
+defmodule MeowWeb.Snapshots.Sorting.MeerkatLive do
   use MeowWeb, :live_view
 
   alias Meow.Meerkats
