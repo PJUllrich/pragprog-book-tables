@@ -1,34 +1,35 @@
 # The directory Mix will write compiled artifacts to.
-/meow/_build/
+/_build/
 
 # If you run "mix test --cover", coverage assets end up here.
-/meow/cover/
+/cover/
 
 # The directory Mix downloads your dependencies sources to.
-/meow/deps/
+/deps/
 
 # Where 3rd-party dependencies like ExDoc output generated docs.
-/meow/doc/
+/doc/
 
 # Ignore .fetch files in case you like to edit your project deps locally.
-/meow/.fetch
+/.fetch
 
 # If the VM crashes, it generates a dump, let's ignore it too.
-/meow/erl_crash.dump
+erl_crash.dump
 
 # Also ignore archive artifacts (built via "mix archive.build").
-/meow/*.ez
+*.ez
 
 # Ignore package tarball (built via "mix hex.build").
-/meow/meow-*.tar
+meow-*.tar
 
 # Ignore assets that are produced by build tools.
-/meow/priv/static/assets/
+/priv/static/assets/
 
 # Ignore digested assets cache.
-/meow/priv/static/cache_manifest.json
+/priv/static/cache_manifest.json
 
 # In case you use Node.js/npm, you want to ignore these.
-/meow/npm-debug.log
-/meow/assets/node_modules/
+npm-debug.log
+/assets/node_modules/
 
+.DS_Store
