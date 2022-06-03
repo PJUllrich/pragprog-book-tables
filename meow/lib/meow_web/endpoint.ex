@@ -7,7 +7,7 @@ defmodule MeowWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_meow_key",
-    signing_salt: "ti0oO9S5"
+    signing_salt: "5ExCbWWS"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
@@ -30,10 +30,6 @@ defmodule MeowWeb.Endpoint do
     plug Phoenix.CodeReloader
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :meow
   end
-
-  plug Phoenix.LiveDashboard.RequestLogger,
-    param_key: "request_logger",
-    cookie_key: "request_logger"
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]

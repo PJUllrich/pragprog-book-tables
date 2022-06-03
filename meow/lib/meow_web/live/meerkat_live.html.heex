@@ -8,31 +8,30 @@
         <th>
           <.live_component 
             module={MeowWeb.MeerkatLive.SortingComponent} 
-            id={"sorting-id"} 
+            id={"sorting-id"}
             key={:id} 
             sorting={@sorting} />
         </th>
         <th>
-          <.live_component 
-            module={MeowWeb.MeerkatLive.SortingComponent}  
-            id={"sorting-name"} 
-            key={:name} 
-            sorting={@sorting} />
+          <.live_component module={MeowWeb.MeerkatLive.SortingComponent} id={"sorting-name"} key={:name} sorting={@sorting} />
         </th>
       </tr>
     </thead>
     <tbody>
-      <%= for meerkat <- @meerkats do %>
+      <%= if assigns[:error_message] do %>
         <tr>
-          <td><%= meerkat.id %></td>
-          <td><%= meerkat.name %></td>
+          <td colspan="6"><%= @error_message %></td>
         </tr>
+      <% else %>
+        <%= for meerkat <- @meerkats do %>
+          <tr data-test-id={meerkat.id}>
+            <td><%= meerkat.id %></td>
+            <td><%= meerkat.name %></td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
-
-  <.live_component 
-    module={MeowWeb.MeerkatLive.PaginationComponent} 
-    id="pagination" 
-    pagination={@pagination} />
+  
+  <.live_component module={MeowWeb.MeerkatLive.PaginationComponent} id="pagination" pagination={@pagination} />
 </div>

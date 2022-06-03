@@ -33,7 +33,10 @@ defmodule Meow.MeerkatsTest do
 
     test "update_meerkat/2 with valid data updates the meerkat" do
       meerkat = meerkat_fixture()
-      update_attrs = %{name: "some updated name"}
+
+      update_attrs = %{
+        name: "some updated name"
+      }
 
       assert {:ok, %Meerkat{} = meerkat} = Meerkats.update_meerkat(meerkat, update_attrs)
       assert meerkat.name == "some updated name"

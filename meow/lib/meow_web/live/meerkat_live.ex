@@ -3,11 +3,13 @@ defmodule MeowWeb.MeerkatLive do
 
   alias Meow.Meerkats
   alias MeowWeb.Forms.SortingForm
-  alias MeowWeb.Forms.FilterForm
   alias MeowWeb.Forms.PaginationForm
+  alias MeowWeb.Forms.FilterForm
 
+  @impl true
   def mount(_params, _session, socket), do: {:ok, socket}
 
+  @impl true
   def handle_params(params, _url, socket) do
     socket =
       socket
@@ -17,6 +19,7 @@ defmodule MeowWeb.MeerkatLive do
     {:noreply, socket}
   end
 
+  @impl true
   def handle_info({:update, opts}, socket) do
     params = merge_and_sanitize_params(socket, opts)
     path = Routes.live_path(socket, __MODULE__, params)
@@ -28,8 +31,8 @@ defmodule MeowWeb.MeerkatLive do
          {:ok, filter_opts} <- FilterForm.parse(params),
          {:ok, pagination_opts} <- PaginationForm.parse(params) do
       socket
-      |> assign_filter(filter_opts)
       |> assign_sorting(sorting_opts)
+      |> assign_filter(filter_opts)
       |> assign_pagination(pagination_opts)
     else
       _error ->
@@ -38,19 +41,6 @@ defmodule MeowWeb.MeerkatLive do
         |> assign_filter()
         |> assign_pagination()
     end
-  end
-
-  defp assign_sorting(socket, overrides \\ %{}) do
-    opts = Map.merge(SortingForm.default_values(), overrides)
-    assign(socket, :sorting, opts)
-  end
-
-  defp assign_filter(socket, overrides \\ %{}) do
-    assign(socket, :filter, FilterForm.default_values(overrides))
-  end
-
-  defp assign_pagination(socket, overrides \\ %{}) do
-    assign(socket, :pagination, PaginationForm.default_values(overrides))
   end
 
   defp assign_meerkats(socket) do
@@ -65,24 +55,31 @@ defmodule MeowWeb.MeerkatLive do
   end
 
   defp merge_and_sanitize_params(socket, overrides \\ %{}) do
-    %{sorting: sorting, filter: filter, pagination: pagination} = socket.assigns
+    %{sorting: sorting, pagination: pagination, filter: filter} = socket.assigns
 
     %{}
     |> Map.merge(sorting)
-    |> Map.merge(filter)
     |> Map.merge(pagination)
+    |> Map.merge(filter)
     |> Map.merge(overrides)
     |> Map.drop([:total_count])
     |> Enum.reject(fn {_key, value} -> is_nil(value) end)
     |> Map.new()
   end
 
+  defp assign_sorting(socket, overrides \\ %{}) do
+    assign(socket, :sorting, SortingForm.default_values(overrides))
+  end
+
+  defp assign_pagination(socket, overrides \\ %{}) do
+    assign(socket, :pagination, PaginationForm.default_values(overrides))
+  end
+
+  defp assign_filter(socket, overrides \\ %{}) do
+    assign(socket, :filter, FilterForm.default_values(overrides))
+  end
+
   defp assign_total_count(socket, total_count) do
-    update(socket, :pagination, fn pagination ->
-      %{
-        pagination
-        | total_count: total_count
-      }
-    end)
+    update(socket, :pagination, fn pagination -> %{pagination | total_count: total_count} end)
   end
 end

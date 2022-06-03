@@ -16,13 +16,11 @@ defmodule MeowWeb.Forms.PaginationForm do
   def parse(params, values \\ @default_values) do
     {values, @fields}
     |> cast(params, Map.keys(@fields))
-    |> validate_number(:page, greater_than: 0)
+    |> validate_number(:page, greater_than_or_equal_to: 0)
     |> validate_number(:page_size, greater_than: 0)
     |> validate_number(:total_count, greater_than_or_equal_to: 0)
     |> apply_action(:insert)
   end
 
-  def default_values(overrides \\ %{}) do
-    Map.merge(@default_values, overrides)
-  end
+  def default_values(overrides \\ %{}), do: Map.merge(@default_values, overrides)
 end

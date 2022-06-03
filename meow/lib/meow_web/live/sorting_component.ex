@@ -16,11 +16,10 @@ defmodule MeowWeb.MeerkatLive.SortingComponent do
     opts = %{sort_by: key, sort_dir: sort_dir}
 
     send(self(), {:update, opts})
-    {:noreply, assign(socket, :sorting, opts)}
+    {:noreply, socket}
   end
 
-  def chevron(%{sort_by: sort_by, sort_dir: sort_dir}, key)
-      when sort_by == key do
+  def chevron(%{sort_by: sort_by, sort_dir: sort_dir}, key) when sort_by == key do
     if sort_dir == :asc, do: "⇧", else: "⇩"
   end
 

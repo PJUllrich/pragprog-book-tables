@@ -23,16 +23,6 @@ defmodule MeowWeb.MeerkatLive.PaginationComponent do
     """
   end
 
-  def pages(%{page_size: page_size, page: current_page, total_count: total_count}) do
-    page_count = ceil(total_count / page_size)
-
-    for page_number <- 1..page_count//1 do
-      current_page? = page_number == current_page
-
-      {page_number, current_page?}
-    end
-  end
-
   @impl true
   def handle_event("show_page", params, socket) do
     parse_params(params, socket)
@@ -53,6 +43,16 @@ defmodule MeowWeb.MeerkatLive.PaginationComponent do
 
       {:error, _changeset} ->
         {:noreply, socket}
+    end
+  end
+
+  def pages(%{page_size: page_size, page: current_page, total_count: total_count}) do
+    page_count = ceil(total_count / page_size)
+
+    for page <- 1..page_count//1 do
+      current_page? = page == current_page
+
+      {page, current_page?}
     end
   end
 end

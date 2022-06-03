@@ -78,11 +78,14 @@ names = [
 ran = fn input -> Enum.random(input) end
 
 meerkat_count = 117
+now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
 
 data =
   for _ <- 1..meerkat_count do
     %{
-      name: "#{ran.(name_prefix)} #{ran.(names)}"
+      name: "#{ran.(name_prefix)} #{ran.(names)}",
+      inserted_at: now,
+      updated_at: now
     }
   end
 

@@ -23,6 +23,7 @@ defmodule MeowWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import MeowWeb.ConnCase
+      import Phoenix.LiveViewTest
 
       alias MeowWeb.Router.Helpers, as: Routes
 

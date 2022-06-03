@@ -27,8 +27,8 @@ defmodule MeowWeb.MeerkatLive.FilterComponent do
     """
   end
 
-  def update(%{filter: filter}, socket) do
-    {:ok, assign(socket, :changeset, FilterForm.change_values(filter))}
+  def update(assigns, socket) do
+    {:ok, assign_changeset(assigns, socket)}
   end
 
   def handle_event("search", %{"filter" => filter}, socket) do
@@ -40,5 +40,9 @@ defmodule MeowWeb.MeerkatLive.FilterComponent do
       {:error, changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
     end
+  end
+
+  defp assign_changeset(%{filter: filter}, socket) do
+    assign(socket, :changeset, FilterForm.change_values(filter))
   end
 end

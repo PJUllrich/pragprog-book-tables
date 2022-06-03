@@ -1,0 +1,84 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "mix compile",
+      "problemMatcher": ["$mixCompileError", "$mixCompileWarning"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Format Current File",
+      "type": "shell",
+      "command": "mix",
+      "args": ["format", "${relativeFile}"],
+      "options": {
+        "cwd": "${workspaceRoot}"
+      },
+      "problemMatcher": "$mixTestFailure",
+      "presentation": {
+        "focus": false,
+        "reveal": "never"
+      }
+    },
+    {
+      "label": "Run All Tests",
+      "type": "shell",
+      "command": "mix",
+      "args": ["test"],
+      "options": {
+        "cwd": "${workspaceRoot}"
+      },
+      "problemMatcher": [
+        "$mixCompileError",
+        "$mixCompileWarning",
+        "$mixTestFailure"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "focus": true
+      }
+    },
+    {
+      "label": "Run Current Tests",
+      "type": "shell",
+      "command": "mix",
+      "args": ["test", "${relativeFile}"],
+      "options": {
+        "cwd": "${workspaceRoot}"
+      },
+      "problemMatcher": [
+        "$mixCompileError",
+        "$mixCompileWarning",
+        "$mixTestFailure"
+      ],
+      "presentation": {
+        "focus": true
+      }
+    },
+    {
+      "label": "Run Focused Test",
+      "type": "shell",
+      "command": "mix",
+      "args": ["test", "${relativeFile}:${lineNumber}"],
+      "options": {
+        "cwd": "${workspaceRoot}"
+      },
+      "problemMatcher": [
+        "$mixCompileError",
+        "$mixCompileWarning",
+        "$mixTestFailure"
+      ],
+      "presentation": {
+        "focus": true
+      }
+    }
+  ]
+}

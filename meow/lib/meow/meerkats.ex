@@ -1,17 +1,26 @@
 defmodule Meow.Meerkats do
-  import Ecto.Query, warn: false
+  @moduledoc """
+  The Meerkats context.
+  """
 
+  import Ecto.Query, warn: false
   alias Meow.Repo
+
   alias Meow.Meerkats.Meerkat
 
-  def list_meerkats do
-    Repo.all(Meerkat)
-  end
+  def meerkat_count(), do: Repo.aggregate(Meerkat, :count)
 
   def list_meerkats(opts) do
     from(m in Meerkat)
-    |> filter(opts)
     |> sort(opts)
+    |> filter(opts)
+    |> Repo.all()
+  end
+
+  def list_meerkats_with_pagination(offset, limit) do
+    from(m in Meerkat)
+    |> limit(^limit)
+    |> offset(^offset)
     |> Repo.all()
   end
 
@@ -29,13 +38,24 @@ defmodule Meow.Meerkats do
     %{meerkats: result, total_count: total_count}
   end
 
-  defp sort(query, %{sort_by: sort_by, sort_dir: sort_dir})
-       when sort_by in [:id, :name] and
-              sort_dir in [:asc, :desc] do
+  defp sort(query, %{sort_dir: sort_dir, sort_by: sort_by})
+       when sort_dir in [:asc, :desc] and
+              sort_by in [:id, :name] do
     order_by(query, {^sort_dir, ^sort_by})
   end
 
   defp sort(query, _opts), do: query
+
+  defp paginate(query, %{page: page, page_size: page_size})
+       when is_integer(page) and is_integer(page_size) do
+    offset = max(page - 1, 0) * page_size
+
+    query
+    |> limit(^page_size)
+    |> offset(^offset)
+  end
+
+  defp paginate(query, _opts), do: query
 
   defp filter(query, opts) do
     query
@@ -57,14 +77,84 @@ defmodule Meow.Meerkats do
 
   defp filter_by_name(query, _opts), do: query
 
-  defp paginate(query, %{page: page, page_size: page_size})
-       when is_integer(page) and is_integer(page_size) do
-    offset = max(page - 1, 0) * page_size
+  @doc """
+  Gets a single meerkat.
 
-    query
-    |> limit(^page_size)
-    |> offset(^offset)
+  Raises `Ecto.NoResultsError` if the Meerkat does not exist.
+
+  ## Examples
+
+      iex> get_meerkat!(123)
+      %Meerkat{}
+
+      iex> get_meerkat!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_meerkat!(id), do: Repo.get!(Meerkat, id)
+
+  @doc """
+  Creates a meerkat.
+
+  ## Examples
+
+      iex> create_meerkat(%{field: value})
+      {:ok, %Meerkat{}}
+
+      iex> create_meerkat(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_meerkat(attrs \\ %{}) do
+    %Meerkat{}
+    |> Meerkat.changeset(attrs)
+    |> Repo.insert()
   end
 
-  defp paginate(query, _opts), do: query
+  @doc """
+  Updates a meerkat.
+
+  ## Examples
+
+      iex> update_meerkat(meerkat, %{field: new_value})
+      {:ok, %Meerkat{}}
+
+      iex> update_meerkat(meerkat, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_meerkat(%Meerkat{} = meerkat, attrs) do
+    meerkat
+    |> Meerkat.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a meerkat.
+
+  ## Examples
+
+      iex> delete_meerkat(meerkat)
+      {:ok, %Meerkat{}}
+
+      iex> delete_meerkat(meerkat)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_meerkat(%Meerkat{} = meerkat) do
+    Repo.delete(meerkat)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking meerkat changes.
+
+  ## Examples
+
+      iex> change_meerkat(meerkat)
+      %Ecto.Changeset{data: %Meerkat{}}
+
+  """
+  def change_meerkat(%Meerkat{} = meerkat, attrs \\ %{}) do
+    Meerkat.changeset(meerkat, attrs)
+  end
 end

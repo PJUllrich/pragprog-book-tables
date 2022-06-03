@@ -22,7 +22,6 @@ defmodule MeowWeb do
       use Phoenix.Controller, namespace: MeowWeb
 
       import Plug.Conn
-      import MeowWeb.Gettext
       alias MeowWeb.Router.Helpers, as: Routes
     end
   end
@@ -72,7 +71,6 @@ defmodule MeowWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import MeowWeb.Gettext
     end
   end
 
@@ -83,13 +81,11 @@ defmodule MeowWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
-      import MeowWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
       import MeowWeb.ErrorHelpers
-      import MeowWeb.Gettext
       alias MeowWeb.Router.Helpers, as: Routes
     end
   end
