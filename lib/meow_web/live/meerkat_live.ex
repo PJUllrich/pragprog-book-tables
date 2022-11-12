@@ -56,6 +56,7 @@ defmodule MeowWeb.MeerkatLive do
 
   defp merge_and_sanitize_params(socket, overrides \\ %{}) do
     %{sorting: sorting, pagination: pagination, filter: filter} = socket.assigns
+    overrides = maybe_reset_pagination(overrides)
 
     %{}
     |> Map.merge(sorting)
@@ -81,5 +82,13 @@ defmodule MeowWeb.MeerkatLive do
 
   defp assign_total_count(socket, total_count) do
     update(socket, :pagination, fn pagination -> %{pagination | total_count: total_count} end)
+  end
+
+  defp maybe_reset_pagination(overrides) do
+    if FilterForm.contains_filter_values?(overrides) do
+      Map.put(overrides, :page, 1)
+    else
+      overrides
+    end
   end
 end

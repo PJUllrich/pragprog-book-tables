@@ -26,4 +26,10 @@ defmodule MeowWeb.Forms.FilterForm do
     {values, @fields}
     |> cast(%{}, Map.keys(@fields))
   end
+
+  def contains_filter_values?(opts) do
+    @fields
+    |> Map.keys()
+    |> Enum.any?(fn key -> Map.get(opts, key) end)
+  end
 end
