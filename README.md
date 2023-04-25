@@ -1,5 +1,9 @@
 # Meow
 
+This is the reference implementation of the demo project of the book `Build Table Views with Phoenix LiveView`.
+
+You can find the starter version of the application to which we'll add the code step-by-step in [pragprog-book-tables-starter-app.zip](https://github.com/PJUllrich/pragprog-book-tables/blob/main/pragprog-book-tables-starter-app.zip). It was created by the super kind [@thebrianemory](https://github.com/thebrianemory) who went through the book backwards and removed all code that we added! Now, you can download that version and add the code from the book step-by-step yourself. Super great work, Brian! Thank you so much! ❤️💛💙💚🧡
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
