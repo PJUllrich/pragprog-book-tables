@@ -8,10 +8,10 @@ defmodule MeowWeb.InfinityLive do
     <table>
       <div id="ping-div" phx-hook="PingPongHook" />
       <tbody id="meerkats"
-             phx-update="append"
+             phx-update="stream"
              phx-hook="InfinityScroll">
-        <%= for meerkat <- @meerkats do %>
-          <tr id={"meerkat-#{meerkat.id}"}>
+        <%= for {dom_id, meerkat} <- @streams.meerkats do %>
+          <tr id={dom_id}>
             <td><%= meerkat.id %></td>
             <td><%= meerkat.name %></td>
           </tr>
@@ -29,7 +29,7 @@ defmodule MeowWeb.InfinityLive do
       |> assign(offset: 0, limit: 25, count: count)
       |> load_meerkats()
 
-    {:ok, socket, temporary_assigns: [meerkats: []]}
+    {:ok, socket}
   end
 
   def handle_event("ping", params, socket) do
@@ -55,6 +55,6 @@ defmodule MeowWeb.InfinityLive do
 
   defp load_meerkats(%{assigns: %{offset: offset, limit: limit}} = socket) do
     meerkats = Meerkats.list_meerkats_with_pagination(offset, limit)
-    assign(socket, :meerkats, meerkats)
+    stream(socket, :meerkats, meerkats)
   end
 end

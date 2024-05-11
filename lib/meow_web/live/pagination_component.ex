@@ -15,7 +15,7 @@ defmodule MeowWeb.MeerkatLive.PaginationComponent do
         <% end %>
       </div>
       <div>
-        <.form let={f} for={:page_size} phx-change="set_page_size" phx-target={@myself} >
+        <.form :let={f} for={%{}} as={:page_size} phx-change="set_page_size" phx-target={@myself} >
           <%= select f, :page_size, [10, 20, 50, 100], selected: @pagination.page_size %>
         </.form>
       </div>
